@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}Soil Health{% endblock title %}
+
+{% block content%}
+
+
+<main id="pest-main" class="main-container">
+        <header class="page-header">
+            <h1 class="page-title">Pest Detection</h1>
+            <p class="page-subtitle">Identify crop diseases and get actionable pest control solutions.</p>
+        </header>
+
+        <section class="tool-section">
+            <div class="form-card">
+                <div class="input-group">
+                    <label for="crop" class="input-label">Affected Crop</label>
+                    <input type="text" id="crop" class="input-field" placeholder="e.g., Tomatoes, Corn">
+                </div>
+                
+                <div class="input-group">
+                    <label for="problem" class="input-label">Describe the Problem</label>
+                    <input type="text" id="problem" class="input-field" placeholder="e.g., Yellow spots on leaves, wilting">
+                </div>
+
+                <button onclick="getPest()" id="pest-btn" class="btn primary-btn full-width">Diagnose Issue</button>
+            </div>
+
+            <div id="result-card" class="result-container">
+                <h3 class="result-title">Diagnosis & Solutions</h3>
+                <div id="result" class="result-content">
+                    <span class="placeholder-text">Enter your crop and describe the symptoms above to get a solution.</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+    async function getPest() {
+        document.getElementById("result").innerHTML = '<span class="placeholder-text">Analyzing symptoms...</span>';
+
+        const res = await fetch("/api/pest", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({
+                crop: document.getElementById("crop").value,
+                problem: document.getElementById("problem").value,
+                language: "en"
+            })
+        });
+
+        const data = await res.json();
+        document.getElementById("result").innerText = marked.parse(data.response);
+    }
+    </script>
+
+
+{% endblock content%}

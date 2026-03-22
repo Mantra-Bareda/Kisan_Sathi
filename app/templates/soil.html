@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}Soil Health{% endblock title %}
+
+{% block content%}
+    
+
+<main id="soil-main" class="main-container">
+        <header class="page-header">
+            <h1 class="page-title">Soil Health</h1>
+            <p class="page-subtitle">Analyze your soil composition and pH levels for optimal crop growth.</p>
+        </header>
+
+        <section class="tool-section">
+            <div class="form-card">
+                <div class="input-group">
+                    <label for="soil" class="input-label">Soil Type</label>
+                    <input type="text" id="soil" class="input-field" placeholder="e.g., Clay, Sandy, Loam">
+                </div>
+                
+                <div class="input-group">
+                    <label for="ph" class="input-label">pH Level</label>
+                    <input type="number" step="0.1" id="ph" class="input-field" placeholder="e.g., 6.5">
+                </div>
+
+                <button onclick="getSoil()" id="soil-btn" class="btn primary-btn full-width">Check Health</button>
+            </div>
+
+            <div id="result-card" class="result-container">
+                <h3 class="result-title">Soil Analysis Report</h3>
+                <div id="result" class="result-content">
+                    <span class="placeholder-text">Enter your soil details above to get an analysis.</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+    async function getSoil() {
+        document.getElementById("result").innerHTML = '<span class="placeholder-text">Analyzing soil data...</span>';
+
+        const res = await fetch("/api/soil", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({
+                soil_type: document.getElementById("soil").value,
+                ph: document.getElementById("ph").value,
+                language: "en"
+            })
+        });
+
+        const data = await res.json();
+        document.getElementById("result").innerText = marked.parse(data.response);
+    }
+    </script>
+
+{% endblock content%}

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}About us{% endblock title %}
+
+{% block content%}
+    
+
+    <main id="about-main" class="main-container">
+        <header class="page-header">
+            <h1 class="page-title">About Kisan Sathi</h1>
+            <p class="page-subtitle">Empowering farmers with intelligent solutions.</p>
+        </header>
+
+        <section id="about-section" class="content-section">
+            <div class="info-card layout-split">
+                <div class="text-content">
+                    <h2 class="section-heading">Our Mission</h2>
+                    <p class="section-text">
+                        This platform helps farmers with AI-based crop recommendations and solutions. Our goal is to make smart farming accessible to everyone by providing real-time, data-driven insights.
+                    </p>
+                </div>
+                <div class="image-content">
+                    <img src="/static/images/about-farming.jpg" alt="Smart Farming" class="responsive-img placeholder-img">
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock content%}

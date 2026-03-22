@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock title %}
+
+{% block content%}
+
+<main id="dashboard-main" class="main-container">
+    <header class="dashboard-header">
+            <h1 id="dashboard-title" class="page-title">Kisan Sathi Dashboard</h1>
+            <p class="page-subtitle">Select a tool below to get started with your smart farming.</p>
+        </header>
+
+        <section id="dashboard-menu-section" class="dashboard-content">
+            <div id="dashboard-grid" class="grid-menu">
+                
+                <a href="/crop" id="card-crop" class="dashboard-card">
+                    <span class="card-icon">🌱</span>
+                    <h3 class="card-title">Crop Advisory</h3>
+                    <p class="card-desc">Get personalized crop recommendations.</p>
+                </a>
+                
+                <a href="/soil" id="card-soil" class="dashboard-card">
+                    <span class="card-icon">🌍</span>
+                    <h3 class="card-title">Soil Health</h3>
+                    <p class="card-desc">Analyze and improve your soil quality.</p>
+                </a>
+                
+                <a href="/weather" id="card-weather" class="dashboard-card">
+                    <span class="card-icon">☀️</span>
+                    <h3 class="card-title">Weather Advisory</h3>
+                    <p class="card-desc">Real-time forecasts and farming alerts.</p>
+                </a>
+                
+                <a href="/pest" id="card-pest" class="dashboard-card">
+                    <span class="card-icon">🐛</span>
+                    <h3 class="card-title">Pest Detection</h3>
+                    <p class="card-desc">Identify and manage crop threats.</p>
+                </a>
+                
+                <a href="/market" id="card-market" class="dashboard-card">
+                    <span class="card-icon">📈</span>
+                    <h3 class="card-title">Market Advice</h3>
+                    <p class="card-desc">Track trends and optimize your sales.</p>
+                </a>
+                
+                
+                <a href="/advanced-chat" id="card-ad-chat" class="dashboard-card">
+                    <span class="card-icon">💬</span>
+                    <h3 class="card-title">Advanced Chat`</h3>
+                    <p class="card-desc">Directly ask Questions ,text or voice and uploading images.</p>
+                </a>
+
+            </div>
+        </section>
+    </main>
+
+{% endblock content%}

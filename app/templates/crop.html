@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block title %}Crop Advisory{% endblock title %}
+
+{% block content%}
+    
+    
+    <main id="crop-main" class="main-container">
+        <header class="page-header">
+            <h1 class="page-title">Crop Advisory</h1>
+            <p class="page-subtitle">Get personalized AI recommendations tailored to your specific location and soil.</p>
+        </header>
+
+        <section class="tool-section">
+            <div class="form-card">
+                <div class="input-group">
+                    <label for="location" class="input-label">Location</label>
+                    <input type="text" id="location" class="input-field" placeholder="e.g., Maharashtra, Texas">
+                </div>
+                
+                <div class="input-group">
+                    <label for="soil" class="input-label">Soil Type</label>
+                    <input type="text" id="soil" class="input-field" placeholder="e.g., Loamy, Clay, Sandy">
+                </div>
+
+                <div class="input-group">
+                    <label for="crop" class="input-label">Target Crop</label>
+                    <input type="text" id="crop" class="input-field" placeholder="e.g., Cotton, Wheat">
+                </div>
+
+                <button onclick="getCrop()" id="crop-btn" class="btn primary-btn full-width">Get Advice</button>
+            </div>
+
+            <div id="result-card" class="result-container">
+                <h3 class="result-title">AI Advisory Report</h3>
+                <div id="result" class="result-content">
+                    <span class="placeholder-text">Enter your farm details above to generate your custom advisory report.</span>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <script>
+        let language = localStorage.getItem("language") || "en";    
+        
+    async function getCrop() {
+        
+        document.getElementById("result").innerHTML = '<span class="placeholder-text">Analysing Crop Data...</span>';
+        const res = await fetch("/api/crop", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({
+                location: document.getElementById("location").value,
+                soil_type: document.getElementById("soil").value,
+                crop: document.getElementById("crop").value,
+                language: language
+            })
+        });
+
+        
+        const data = await res.json();
+        document.getElementById("result").innerHTML = marked.parse(data.response);
+    }
+    </script>
+
+{% endblock content%}

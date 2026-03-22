@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}Weather Advisory{% endblock title %}
+
+{% block content%}
+    
+
+
+    <main id="weather-main" class="main-container">
+        <header class="page-header">
+            <h1 class="page-title">Weather Advisory</h1>
+            <p class="page-subtitle">Get real-time weather updates and farming alerts for your region.</p>
+        </header>
+
+        <section class="tool-section">
+            <div class="form-card">
+                <div class="input-group">
+                    <label for="location" class="input-label">Farm Location</label>
+                    <input type="text" id="location" class="input-field" placeholder="e.g., Kerala, Ohio">
+                </div>
+
+                <button onclick="getWeather()" id="weather-btn" class="btn primary-btn full-width">Get Forecast</button>
+            </div>
+
+            <div id="result-card" class="result-container">
+                <h3 class="result-title">Weather Report</h3>
+                <div id="result" class="result-content">
+                    <span class="placeholder-text">Enter your location above to fetch the latest weather data.</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+    async function getWeather() {
+        document.getElementById("result").innerHTML = '<span class="placeholder-text">Analyzing Weather data...</span>';
+        const res = await fetch("/api/weather", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({
+                location: document.getElementById("location").value,
+                language: "en"
+            })
+        });
+
+        const data = await res.json();
+        document.getElementById("result").innerText = marked.parse(data.response);
+    }
+    </script>
+
+{% endblock content%}

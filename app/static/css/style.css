@@ -1,0 +1,442 @@
+/* =========================================
+   1. CSS Variables & Global Reset
+   ========================================= */
+:root {
+    --primary-green: #2ecc71;
+    --dark-green: #27ae60;
+    --light-bg: #f8fbf9;
+    --white: #ffffff;
+    --text-dark: #2c3e50;
+    --text-gray: #7f8c8d;
+    --border-color: #e1e8e5;
+    --card-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+    --hover-shadow: 0 12px 32px rgba(46, 204, 113, 0.15);
+    --transition: all 0.3s ease;
+    --radius: 12px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+    background-color: var(--light-bg);
+    color: var(--text-dark);
+    line-height: 1.6;
+}
+
+/* =========================================
+   2. Navigation Bar
+   ========================================= */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 5%;
+    background-color: var(--white);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo-image {
+    height: 80px;
+    width: auto;
+}
+
+.nav-menu {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--text-dark);
+    font-weight: 600;
+    font-size: 1rem;
+    transition: var(--transition);
+}
+
+.nav-link:hover, .nav-link.active {
+    color: white;
+    background-color: var(--primary-green);
+    padding: 10px;
+    border-radius: 7px;
+}
+
+.main-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem 5%;
+}
+
+.page-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.page-title {
+    font-size: 2.5rem;
+    color: var(--text-dark);
+    margin-bottom: 0.5rem;
+}
+
+.page-subtitle {
+    font-size: 1.1rem;
+    color: var(--text-gray);
+}
+
+.hero-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 75vh;
+    position: relative;
+    text-align: center;
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+
+
+.hero-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    z-index: 0;
+}
+
+.hero-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.55);
+    z-index: 1;
+}
+
+.hero-content {
+    max-width: 800px;
+    position: relative;
+    z-index: 2;
+    padding: 2rem;
+}
+
+.hero-heading {
+    font-size: 3.8rem;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    color: #ffffff;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.6);
+}
+
+.hero-description {
+    font-size: 1.3rem;
+    color: #f8fbf9;
+    margin-bottom: 2.5rem;
+    text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.6);
+}
+
+@media (max-width: 850px) {
+    .hero-heading {
+        font-size: 2.8rem;
+    }
+    .hero-description {
+        font-size: 1.1rem;
+    }
+}
+
+.grid-menu {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.dashboard-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 2.5rem 1.5rem;
+    text-decoration: none;
+    color: var(--text-dark);
+    text-align: center;
+    box-shadow: var(--card-shadow);
+    transition: var(--transition);
+    border: 2px solid transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary-green);
+    box-shadow: var(--hover-shadow);
+}
+
+.card-icon {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+}
+
+.card-title {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+}
+
+.card-desc {
+    font-size: 0.95rem;
+    color: var(--text-gray);
+}
+
+.tool-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: stretch; /* Keeps form and result same height */
+}
+
+.form-card, .result-container, .info-card {
+    background: var(--white);
+    padding: 2.5rem;
+    border-radius: var(--radius);
+    box-shadow: var(--card-shadow);
+}
+
+.result-container {
+    background: linear-gradient(135deg, #ffffff 0%, #f4fbf7 100%);
+    border-left: 6px solid var(--primary-green);
+    min-height: 350px;
+    display: flex;
+    flex-direction: column;
+}
+
+.result-title {
+    margin-bottom: 1.5rem;
+    font-size: 1.3rem;
+    color: var(--primary-green);
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 0.5rem;
+}
+
+.result-content {
+    font-size: 1.05rem;
+    color: var(--text-dark);
+    white-space: pre-wrap; /* Formats the API text properly */
+    flex-grow: 1;
+}
+
+.placeholder-text {
+    color: #aeb6bf;
+    font-style: italic;
+}
+
+.lang-toggle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: bold;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+}
+
+.switch input {
+    display: none;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0;
+    right: 0; bottom: 0;
+    background-color: #ccc;
+    transition: .3s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .3s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #4caf50;
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+.input-group {
+    margin-bottom: 1.5rem;
+}
+
+.input-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.input-field {
+    width: 100%;
+    padding: 0.9rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: var(--transition);
+    background-color: #fafbfc;
+}
+
+.input-field:focus {
+    outline: none;
+    border-color: var(--primary-green);
+    background-color: var(--white);
+    box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.15);
+}
+
+.textarea-field {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 0.9rem 1.5rem;
+    border-radius: 8px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+    border: none;
+    transition: var(--transition);
+}
+
+.primary-btn {
+    background-color: var(--primary-green);
+    color: var(--white);
+}
+
+.primary-btn:hover {
+    background-color: var(--dark-green);
+    box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);
+}
+
+.full-width {
+    width: 100%;
+}
+
+#result ul, 
+#result ol {
+    margin: 0;
+    padding-left: 10px;
+}
+
+#result li {
+    margin: 2px 0;
+    line-height: 1;
+}
+
+#result p {
+    margin: 0;
+    padding: 0;
+}
+
+
+
+.layout-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+}
+
+.responsive-img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius);
+    object-fit: cover;
+    box-shadow: var(--card-shadow);
+}
+
+.contact-detail {
+    display: flex;
+    align-items: center;
+    margin-top: 1.5rem;
+    gap: 1rem;
+}
+
+.contact-detail .icon {
+    font-size: 1.5rem;
+}
+
+.contact-link {
+    color: var(--primary-green);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.contact-link:hover {
+    text-decoration: underline;
+}
+
+/* =========================================
+   9. Responsive Design (Mobile Support)
+   ========================================= */
+@media (max-width: 850px) {
+    .tool-section, .layout-split, .hero-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .hero-container {
+        text-align: center;
+        justify-content: center;
+    }
+    
+    .hero-content {
+        margin: 0 auto;
+    }
+    
+    .hero-heading {
+        font-size: 2.5rem;
+    }
+    
+    .nav-menu {
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .nav-menu {
+        display: none; /* Hide standard menu on very small screens */
+    }
+    
+    .main-container {
+        padding: 2rem 5%;
+    }
+    
+    .form-card, .result-container, .info-card {
+        padding: 1.5rem;
+    }
+}

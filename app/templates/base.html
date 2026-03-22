@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kisan Sathi - {% block title %}{% endblock title %}</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+
+<body>
+
+    <nav id="main-nav" class="navbar">
+        <div class="nav-brand">
+            <a href="/">
+                <img src="/static/images/Kisan Sathi-logo.png" alt="Kisan Sathi Logo" id="nav-logo" class="logo-image">
+            </a>
+        </div>
+        <ul id="nav-links" class="nav-menu">
+            <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
+            <li class="nav-item"><a href="/about" class="nav-link">About</a></li>
+            <li class="nav-item"><a href="/chat" class="nav-link">Chat</a></li>
+            <li class="nav-item"><a href="/contact" class="nav-link">Contact</a></li>
+            <li>
+                <div class="lang-toggle">
+                    <span id="lang-label">English</span>
+
+                    <label class="switch">
+                        <input type="checkbox" id="lang-switch">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    {% block content %}
+
+    {% endblock content %}
+
+    <script>
+    
+document.addEventListener("DOMContentLoaded", () => {
+    const toggle = document.getElementById("lang-switch");
+    const label = document.getElementById("lang-label");
+
+    // Load saved language
+    let savedLang = localStorage.getItem("language") || "en";
+    toggle.checked = savedLang === "hi";
+    label.textContent = savedLang === "hi" ? "Hindi" : "English";
+
+    // Toggle without refresh
+    toggle.addEventListener("change", () => {
+        if (toggle.checked) {
+            localStorage.setItem("language", "hi");
+            label.textContent = "Hindi";
+        } else {
+            localStorage.setItem("language", "en");
+            label.textContent = "English";
+        }
+    });
+});
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}Soil Health{% endblock title %}
+
+{% block content%}
+
+
+<main id="market-main" class="main-container">
+        <header class="page-header">
+            <h1 class="page-title">Market Advice</h1>
+            <p class="page-subtitle">Check current market trends and pricing for your crops.</p>
+        </header>
+
+        <section class="tool-section">
+            <div class="form-card">
+                <div class="input-group">
+                    <label for="crop" class="input-label">Crop Name</label>
+                    <input type="text" id="crop" class="input-field" placeholder="e.g., Wheat, Tomato">
+                </div>
+                
+                <div class="input-group">
+                    <label for="location" class="input-label">Location</label>
+                    <input type="text" id="location" class="input-field" placeholder="e.g., Punjab, California">
+                </div>
+
+                <button onclick="getMarket()" id="market-btn" class="btn primary-btn full-width">Get Market Info</button>
+            </div>
+
+            <div id="result-card" class="result-container">
+                <h3 class="result-title">Market Insights</h3>
+                <div id="result" class="result-content">
+                    <span class="placeholder-text">Enter your crop and location above to see data.</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+    async function getMarket() {
+        document.getElementById("result").innerText = "Fetching data...";
+
+        const res = await fetch("/api/market", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({
+                crop: document.getElementById("crop").value,
+                location: document.getElementById("location").value,
+                language: "en"
+            })
+        });
+
+        const data = await res.json();
+        document.getElementById("result").innerText = marked.parse(data.response);
+    }
+    </script>
+
+{% endblock content%}

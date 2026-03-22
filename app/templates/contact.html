@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}Soil Health{% endblock title %}
+
+{% block content%}
+
+
+<main id="contact-main" class="main-container">
+        <header class="page-header">
+            <h1 class="page-title">Contact Support</h1>
+            <p class="page-subtitle">Have questions? We're here to help you grow.</p>
+        </header>
+
+        <section id="contact-section" class="content-section">
+            <div class="contact-wrapper layout-split">
+                
+                <div class="info-card contact-info">
+                    <h2 class="section-heading">Get in Touch</h2>
+                    <p class="section-text">Reach out to us directly for any support, feedback, or business inquiries regarding your smart farming needs.</p>
+                    
+                    <div class="contact-detail">
+                        <span class="icon">✉️</span>
+                        <div class="detail-text">
+                            <strong>Email:</strong>
+                            <a href="mailto:support@Kisan Sathi.com" class="contact-link">baredamantra6@gmail.com</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-card contact-form">
+                    <h3 class="form-title">Send a Message</h3>
+                    
+                    <div class="input-group">
+                        <label for="name" class="input-label">Name</label>
+                        <input type="text" id="name" class="input-field" placeholder="Your Name">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="email" class="input-label">Email</label>
+                        <input type="email" id="email" class="input-field" placeholder="Your Email">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="message" class="input-label">Message</label>
+                        <textarea id="message" class="input-field textarea-field" placeholder="How can we help?" rows="4"></textarea>
+                    </div>
+                    
+                    <button id="send-btn" class="btn primary-btn full-width">Send Message</button>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+{% endblock content%}

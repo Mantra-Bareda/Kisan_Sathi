@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}AI for Smart Farming{% endblock title %}
+
+{% block content %}
+        <main id="main-content">
+        <section id="hero-section" class="hero-container">
+            <video autoplay loop muted playsinline class="hero-video">
+                <source src="/static/images/background.mp4" type="video/mp4">
+            </video>
+            <div class="hero-content">
+                <center>
+                <h1 id="hero-title" class="hero-heading">AI for Smart Farming</h1>
+                <p id="hero-subtitle" class="hero-description">Get crop advice, pest solutions, and farming guidance.</p>
+                <div class="hero-actions">
+                    <a href="/chat" id="hero-cta" class="btn primary-btn">Start Chat</a>
+                </div>
+                </center>
+            </div>
+            <div class="hero-image-wrapper"></div>
+        </section>
+    </main>
+{% endblock content %}

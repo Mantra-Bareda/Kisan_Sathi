@@ -1,0 +1,195 @@
+{% extends 'base.html' %}
+
+{% block title %}Chat with AI{% endblock title %}
+
+{% block content %}
+
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        background: #f7f7f8;
+        font-family: Arial, sans-serif;
+    }
+
+    #chat-box {
+        flex: 1;
+        padding: 20px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .msg {
+        max-width: 80%;
+        padding: 14px;
+        border-radius: 12px;
+        line-height: 1.4;
+        white-space: pre-wrap;
+    }
+
+    .user {
+        background: #DCF8C6;
+        align-self: flex-end;
+    }
+
+    .bot {
+        background: #ffffff;
+        border: 1px solid #ddd;
+        align-self: flex-start;
+    }
+
+    .bot p, .bot ul{
+        padding: 20px;
+    }
+
+    #input-area {
+        padding: 12px;
+        display: flex;
+        gap: 10px;
+        background: #ffffff;
+        border-top: 1px solid #ddd;
+        align-items: center;
+    }
+
+    #file-label {
+        background: #eee;
+        padding: 10px;
+        border-radius: 8px;
+        cursor: pointer;
+        border: 1px solid #ccc;
+    }
+
+    #file-label:hover {
+        background: #ddd;
+    }
+
+    #file-input {
+        display: none;
+    }
+
+    #message {
+        flex: 1;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 15px;
+    }
+
+    #send-btn {
+        padding: 10px 18px;
+        border: none;
+        background: #4A90E2;
+        color: white;
+        font-size: 15px;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+
+    #send-btn:hover {
+        background: #357ac8;
+    }
+</style>
+
+<div id="chat-box"></div>
+
+<div id="input-area">
+
+    <label id="file-label" for="file-input">📎</label>
+    <input type="file" id="file-input" accept="image/*,.pdf">
+
+    <input type="text" id="message" placeholder="Type your message…">
+    <button id="send-btn">Send</button>
+</div>
+
+<script>
+
+let chatBox = document.getElementById("chat-box");
+let input = document.getElementById("message");
+let fileInput = document.getElementById("file-input");
+
+function addMessage(text, sender = "user") {
+    let div = document.createElement("div");
+    div.classList.add("msg", sender);
+    div.innerHTML = marked.parse(text);
+    chatBox.appendChild(div);
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+
+function addFileMessage(file, sender = "user") {
+    let div = document.createElement("div");
+    div.classList.add("msg", sender);
+
+    if (file.type.startsWith("image/")) {
+        div.innerHTML = `
+            <strong>Uploaded Image:</strong><br>
+            <img src="${URL.createObjectURL(file)}" style="max-width:200px;border-radius:8px">
+        `;
+    }
+    else if (file.type === "application/pdf") {
+        div.innerHTML = `
+            <strong>Uploaded PDF:</strong> ${file.name}
+        `;
+    }
+
+    chatBox.appendChild(div);
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+async function sendMessage() {
+
+    let text = input.value.trim();
+    let file = fileInput.files[0];
+
+    if (!text && !file) return;
+
+    const formData = new FormData();
+    formData.append("language", localStorage.getItem("language") || "en");
+
+    // Add text
+    if (text) {
+        addMessage(text, "user");
+        formData.append("message", text);
+    }
+
+    // Add file (only once)
+    if (file) {
+        addFileMessage(file, "user");
+
+        if (file.type.startsWith("image/")) {
+            formData.append("image", file);
+        } else if (file.type === "application/pdf") {
+            formData.append("pdf", file);
+        }
+
+        // IMPORTANT: remove file after sending once
+        fileInput.value = "";
+    }
+
+    // clear textbox
+    input.value = "";
+
+    const res = await fetch("/api/chat", {
+        method: "POST",
+        body: formData
+    });
+
+    const data = await res.json();
+
+    addMessage(data.response, "bot");
+}
+
+
+document.getElementById("send-btn").addEventListener("click", sendMessage);
+
+input.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") sendMessage();
+});
+
+</script>
+
+{% endblock content %}
